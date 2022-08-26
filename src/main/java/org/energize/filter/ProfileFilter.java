@@ -20,9 +20,18 @@ import java.util.Date;
 @WebFilter(filterName = "ProfileFilter", urlPatterns = "/profile")
 public class ProfileFilter extends HttpFilter {
 
+    private AuthService authService;
+
+    private Credential credential;
+
     private static final String SECRET = "something_interesting_in_this_case";
 
     private String jws;
+
+    public ProfileFilter() {
+        this.authService = new AuthService();
+        this.credential = new Credential();
+    }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -52,13 +61,10 @@ public class ProfileFilter extends HttpFilter {
                 return;
             }
 
-            Credential credential = new Credential();
-            credential.setEmail(credentials[0]);
-            credential.setPassword(credentials[1]);
+            this.credential.setEmail(credentials[0]);
+            this.credential.setPassword(credentials[1]);
 
-
-            AuthService authService = new AuthService();
-            User user = authService.attempt(credential);
+            User user = this.authService.attempt(credential);
 
 
             if (credentials[0].equals(user.getEmail()) && credentials[1].equals(user.getPassword())){
