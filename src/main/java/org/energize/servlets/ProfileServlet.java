@@ -17,25 +17,8 @@ import java.io.IOException;
 @WebServlet(value = "/profile")
 public class ProfileServlet  extends HttpServlet {
 
-    private AuthService authService;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        this.authService = new AuthService();
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("auth/profile.html").include(request, response);
     }
-
-
-    private Credential credentialDtoToCredential(CredentialDTO dto){
-        Credential credential = new Credential();
-        credential.setEmail(dto.getEmail());
-        credential.setPassword(dto.getPassword());
-        return credential;
-    }
-
 }

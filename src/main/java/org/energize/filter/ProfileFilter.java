@@ -20,18 +20,11 @@ import java.util.Date;
 @WebFilter(filterName = "ProfileFilter", urlPatterns = "/profile")
 public class ProfileFilter extends HttpFilter {
 
-    private AuthService authService;
-
-    private Credential credential;
 
     private static final String SECRET = "something_interesting_in_this_case";
-
     private String jws;
-
-    public ProfileFilter() {
-        this.authService = new AuthService();
-        this.credential = new Credential();
-    }
+    private String token;
+    private String authorization;
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -41,18 +34,16 @@ public class ProfileFilter extends HttpFilter {
         HttpServletResponse response = (HttpServletResponse) res;
 
 
-        String authorization = request.getHeader("Authorization");
-        if (authorization == null || !(authorization.matches("Basic .+") || authorization.matches("Bearer .+"))){
+        this.authorization = request.getHeader("Authorization");
+        if (this.authorization == null || !(this.authorization.matches("Basic .+") || this.authorization.matches("Bearer .+"))){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
+        this.token = this.authorization.replaceAll("(Basic)|(Bearer)", "").trim();
 
-        String token = authorization.replaceAll("(Basic)|(Bearer)", "").trim();
-
-
-        if (authorization.matches("Basic .+")){
-            String decodedCredentials = new String(Base64.getDecoder().decode(token.getBytes()));
+        if (this.authorization.matches("Basic .+")){
+            String decodedCredentials = new String(Base64.getDecoder().decode(this.token.getBytes()));
             String[] credentials = decodedCredentials.split(":");
 
 
@@ -61,23 +52,24 @@ public class ProfileFilter extends HttpFilter {
                 return;
             }
 
-            this.credential.setEmail(credentials[0]);
-            this.credential.setPassword(credentials[1]);
+            Credential credential = new Credential();
+            credential.setEmail(credentials[0]);
+            credential.setPassword(credentials[1]);
 
-            User user = this.authService.attempt(credential);
+            AuthService authService = new AuthService();
+            User user = authService.attempt(credential);
 
 
             if (credentials[0].equals(user.getEmail()) && credentials[1].equals(user.getPassword())){
-                 jws = Jwts.builder()
+                this.jws = Jwts.builder()
                         .setIssuer("user")
                         .claim("email", credentials[0])
-
                         .setExpiration(new Date(new Date().getTime() + (1000 * 60 * 2)))
                         .signWith(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8)))
                         .compact();
 
-                response.addHeader("X-Auth-Token", jws);
-                chain.doFilter(request,response);
+                response.addHeader("X-Auth-Token", this.jws);
+                chain.doFilter(req, res);
 
             }else{
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
@@ -90,22 +82,18 @@ public class ProfileFilter extends HttpFilter {
                         .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8)))
                         .requireIssuer("user")
                         .build()
-                        .parseClaimsJws(token);
+                        .parseClaimsJws(this.token);
 
-
-                chain.doFilter(request, response);
+                chain.doFilter(req, res);
 
             }catch (ExpiredJwtException exp){
-
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 res.setContentType("text/html");
                 res.getWriter().println("<h1>Token has expired, Please log in again</h1>");
                 return;
 
             }catch (JwtException exp){
-
                 exp.printStackTrace();
-
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
