@@ -3,11 +3,12 @@ $(document).ready(function () {
         event.preventDefault();
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/profile',
+            url: 'http://localhost:8080/register',
+            async : true,
             headers: {
-                "Authorization": "Basic " + btoa($('#email').val() + ":" + $('#password').val())
+                "Authorization": "Basic " + btoa($('#email').val() + ":" + $('#password').val());
             },
-            success: function (response, status, request) {
+            success: function (response) {
                 console.log(response);
             },
             error: function (response) {
