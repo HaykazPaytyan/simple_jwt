@@ -18,7 +18,9 @@ public class UserService implements UserDAO {
     public List<User> getAll() { return null; }
 
     @Override
-    public boolean create(User user) { return false; }
+    public boolean create(User user) {
+        return false;
+    }
 
     @Override
     public boolean edit(User user, long id) {
