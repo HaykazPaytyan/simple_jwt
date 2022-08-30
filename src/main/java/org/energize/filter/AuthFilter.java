@@ -5,6 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import org.energize.domain.Credential;
 import org.energize.domain.User;
 import org.energize.service.AuthService;
+import org.energize.utility.MD5;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -60,13 +61,14 @@ public class AuthFilter extends HttpFilter {
 
             if (credentials[0].equals(user.getEmail()) && credentials[1].equals(user.getPassword())){
                 this.jws = Jwts.builder()
-                        .setIssuer("user")
-                        .claim("email", credentials[0])
+                        .claim("id", MD5.getMd5(user.getId().toString()))
                         .setExpiration(new Date(new Date().getTime() + (1000 * 60 * 2)))
                         .signWith(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8)))
                         .compact();
 
-                response.addHeader("X-Auth-Token", this.jws);
+                HttpSession session = request.getSession();
+                session.setAttribute("token",this.jws);
+
                 chain.doFilter(req, res);
 
             }else{
@@ -74,27 +76,6 @@ public class AuthFilter extends HttpFilter {
                 return;
             }
 
-        }else{
-            try {
-                Jws<Claims> jwsClaims = Jwts.parserBuilder()
-                        .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8)))
-                        .requireIssuer("user")
-                        .build()
-                        .parseClaimsJws(this.token);
-
-                chain.doFilter(req, res);
-
-            }catch (ExpiredJwtException exp){
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                res.setContentType("text/html");
-                res.getWriter().println("<h1>Token has expired, Please log in again</h1>");
-                return;
-
-            }catch (JwtException exp){
-                exp.printStackTrace();
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
-            }
         }
     }
 }
