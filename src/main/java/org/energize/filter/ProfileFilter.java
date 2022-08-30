@@ -36,7 +36,6 @@ public class ProfileFilter extends HttpFilter {
             return;
         }
 
-
         try {
             Jws<Claims> jwsClaims = Jwts.parserBuilder()
                     .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8)))

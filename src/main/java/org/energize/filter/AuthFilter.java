@@ -45,7 +45,6 @@ public class AuthFilter extends HttpFilter {
             String decodedCredentials = new String(Base64.getDecoder().decode(this.token.getBytes()));
             String[] credentials = decodedCredentials.split(":");
 
-
             if (credentials.length != 2){
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
@@ -69,7 +68,7 @@ public class AuthFilter extends HttpFilter {
                 HttpSession session = request.getSession();
                 session.setAttribute("token",this.jws);
 
-                chain.doFilter(req, res);
+                super.doFilter(req, res,chain);
 
             }else{
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
