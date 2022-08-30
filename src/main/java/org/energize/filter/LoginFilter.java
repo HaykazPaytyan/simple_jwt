@@ -22,12 +22,14 @@ public class LoginFilter extends HttpFilter {
         HttpServletResponse response = (HttpServletResponse) res;
 
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(0);
+
         String token = (String) session.getAttribute("token");
 
         if (token != null){
             response.sendRedirect("/profile");
         }
 
-        super.doFilter(req, res, chain);
+        super.doFilter(req, res,chain);
     }
 }
