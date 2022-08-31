@@ -18,6 +18,7 @@ public class AuthService implements AuthDAO {
         query.setParameter("credential_email",credential.getEmail());
         query.setParameter("credential_password",credential.getPassword());
         User user = (User) query.getSingleResult();
+        session.close();
         return user;
     }
 

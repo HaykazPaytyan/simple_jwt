@@ -2,7 +2,10 @@ package org.energize.service;
 
 import org.energize.domain.User;
 import org.energize.interfaces.UserDAO;
-
+import org.energize.utility.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 
 import java.util.List;
@@ -20,9 +23,22 @@ public class UserService implements UserDAO {
     @Override
     public boolean create(User user) {
 
+        boolean successful = false;
 
-
-        return false;
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        try{
+            transaction = session.beginTransaction();
+            session.save(user);
+            transaction.commit();
+            successful = true;
+        }catch (HibernateException e){
+            transaction.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return successful;
     }
 
     @Override

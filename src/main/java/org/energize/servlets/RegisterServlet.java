@@ -3,6 +3,7 @@ package org.energize.servlets;
 import com.google.gson.Gson;
 import org.energize.domain.User;
 import org.energize.dto.UserDTO;
+import org.energize.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +22,13 @@ public class RegisterServlet extends HttpServlet {
 
     protected  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
+        boolean success  = false;
+
         UserDTO userDTO = new Gson().fromJson(request.getReader(),UserDTO.class);
         User user = this.userDTOToUser(userDTO);
+
+        UserService userService = new UserService();
+        success = userService.create(user);
 
     }
 
