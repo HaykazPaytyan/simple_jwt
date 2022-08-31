@@ -22,6 +22,7 @@ public class RegisterFilter extends HttpFilter {
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(0);
+
         String token = (String) session.getAttribute("token");
 
         if (token != null){

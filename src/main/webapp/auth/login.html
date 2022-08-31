@@ -13,14 +13,17 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="js/app.js" defer></script>
-    <script type="text/javascript" src="js/auth/request_01.js" defer></script>
+    <script type="text/javascript" src="js/auth/login_request.js" defer></script>
+    <script type="text/javascript" src="js/auth/login_validation.js" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="//fonts.gstatic.com" rel="dns-prefetch">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="css/app.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body>
@@ -65,16 +68,13 @@
                             <div class="card-header">Login</div>
 
                             <div class="card-body">
-                                <form id="attempt" autocomplete="off">
+                                <form id="attempt" name="login" autocomplete="off">
 
                                     <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail
-                                            Address</label>
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control" name="email" value=""
-                                                required autocomplete="email" autofocus>
-
+                                            <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
 
                                             <span class="invalid-feedback" role="alert">
                                                 <strong></strong>
@@ -88,9 +88,7 @@
                                             class="col-md-4 col-form-label text-md-right">Password</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control" name="password"
-                                                required autocomplete="current-password">
-
+                                            <input id="password" type="password" class="form-control" name="password" required>
 
                                             <span class="invalid-feedback" role="alert">
                                                 <strong></strong>
@@ -132,6 +130,7 @@
             </div>
         </main>
     </div>
+
 </body>
 
 </html>

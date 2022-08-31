@@ -45,9 +45,8 @@ public class ProfileFilter extends HttpFilter {
             super.doFilter(req, res, chain);
 
         }catch (ExpiredJwtException exp){
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.setContentType("text/html");
-            res.getWriter().println("<h1>Token has expired, Please log in again</h1>");
+            request.getRequestDispatcher("/auth/expaired.html").include(request, response);
+            session.invalidate();
             return;
 
         }catch (JwtException exp){

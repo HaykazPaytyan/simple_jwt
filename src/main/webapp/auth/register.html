@@ -12,13 +12,17 @@
 
     <!-- Scripts -->
     <script src="js/app.js" defer></script>
+    <script src="js/auth/registration_validation.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js" defer></script>
+
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="//fonts.gstatic.com" rel="dns-prefetch">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
+    <link href="css/app.css"  rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -62,15 +66,30 @@
                         <div class="card-header">Register</div>
 
                         <div class="card-body">
-                            <form method="POST" action="" autocomplete="off">
+                            <form id="register" name="registration" autocomplete="off">
 
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                                    <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
 
                                     <div class="col-md-6">
-                                        <input id="name" type="text"
-                                               class="form-control" name="name"
-                                               value="" required autocomplete="name" autofocus>
+                                        <input id="first_name" type="text"
+                                               class="form-control" name="first_name"
+                                               value="" autofocus required>
+
+                                        <span id="first_name_feedback" class="invalid-feedback" role="alert">
+                                        <strong></strong>
+                                    </span>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+
+                                    <div class="col-md-6">
+                                        <input id="last_name" type="text"
+                                               class="form-control" name="last_name"
+                                               value="" required>
 
                                         <span class="invalid-feedback" role="alert">
                                         <strong></strong>
@@ -86,7 +105,7 @@
                                     <div class="col-md-6">
                                         <input id="email" type="email"
                                                class="form-control" name="email"
-                                               value="" required autocomplete="email">
+                                               value="" required>
 
                                         <span class="invalid-feedback" role="alert">
                                         <strong></strong>
@@ -100,8 +119,7 @@
 
                                     <div class="col-md-6">
                                         <input id="password" type="password"
-                                               class="form-control" name="password"
-                                               required autocomplete="new-password">
+                                               class="form-control" name="password" required>
 
                                         <span class="invalid-feedback" role="alert">
                                         <strong></strong>
@@ -111,12 +129,12 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="password-confirm"
+                                    <label for="password_repeat"
                                            class="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
                                     <div class="col-md-6">
-                                        <input id="password-confirm" type="password" class="form-control"
-                                               name="password_confirmation" required autocomplete="new-password">
+                                        <input id="password_repeat" type="password" class="form-control"
+                                               name="password_repeat" required>
                                     </div>
                                 </div>
 
