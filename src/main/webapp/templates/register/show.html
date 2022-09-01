@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Project</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
-    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="public/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="public/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="public/img/favicon-16x16.png">
+    <link rel="manifest" href="public/img/site.webmanifest">
 
     <!-- Scripts -->
-    <script src="js/app.js" defer></script>
-    <script src="js/auth/registration_request.js" defer></script>
-
+    <script type="text/javascript" src="public/js/app.js" defer></script>
+    <script type="text/javascript" src="public/js/auth/registration_request.js" defer></script>
 
     <!-- Fonts -->
     <link href="//fonts.gstatic.com" rel="dns-prefetch">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="css/app.css"  rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <link href="public/css/app.css" rel="stylesheet">
+    <link href="public/css/main.css" rel="stylesheet">
 </head>
+
 <body>
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -30,8 +31,8 @@
             <a class="navbar-brand" href="/">
                 Project
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -65,50 +66,33 @@
                         <div class="card-header">Register</div>
 
                         <div class="card-body">
-                            <form id="register" name="registration" autocomplete="off">
+                            <form id="register" autocomplete="off">
 
                                 <div class="form-group row">
-                                    <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
+                                    <label for="first_name" class="col-md-4 col-form-label text-md-right">First
+                                        Name</label>
 
                                     <div class="col-md-6">
-                                        <input id="first_name" type="text"
-                                               class="form-control" name="first_name"
-                                               value="" autofocus required>
-
-                                        <span id="first_name_feedback" class="invalid-feedback" role="alert">
-                                        <strong></strong>
-                                    </span>
-
+                                        <input id="first_name" type="text" class="form-control" name="first_name"
+                                               autofocus>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                                    <label for="last_name" class="col-md-4 col-form-label text-md-right">Last
+                                        Name</label>
 
                                     <div class="col-md-6">
-                                        <input id="last_name" type="text"
-                                               class="form-control" name="last_name"
-                                               value="" required>
-
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong></strong>
-                                    </span>
-
+                                        <input id="last_name" type="text" class="form-control" name="last_name">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="email"
-                                           class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                    <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail
+                                        Address</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="email"
-                                               class="form-control" name="email"
-                                               value="" required>
-
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong></strong>
-                                    </span>
+                                        <input id="email" type="email" class="form-control" name="email">
                                     </div>
                                 </div>
 
@@ -117,13 +101,7 @@
                                            class="col-md-4 col-form-label text-md-right">Password</label>
 
                                     <div class="col-md-6">
-                                        <input id="password" type="password"
-                                               class="form-control" name="password" required>
-
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong></strong>
-                                    </span>
-
+                                        <input id="password" type="password" class="form-control" name="password">
                                     </div>
                                 </div>
 
@@ -133,14 +111,14 @@
 
                                     <div class="col-md-6">
                                         <input id="password_repeat" type="password" class="form-control"
-                                               name="password_repeat" required>
+                                               name="password_repeat">
                                     </div>
                                 </div>
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
-                                           Register
+                                            Register
                                         </button>
                                     </div>
                                 </div>
@@ -153,4 +131,5 @@
     </main>
 </div>
 </body>
+
 </html>

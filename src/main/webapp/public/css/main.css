@@ -1,0 +1,11 @@
+.error_message{
+    color: red !important;
+    font-weight: bold;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }

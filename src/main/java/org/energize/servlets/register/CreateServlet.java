@@ -1,4 +1,4 @@
-package org.energize.servlets;
+package org.energize.servlets.register;
 
 import com.google.gson.Gson;
 import org.energize.domain.User;
@@ -12,15 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(value = "/register/create")
+public class CreateServlet  extends HttpServlet {
 
-@WebServlet(value = "/register")
-public class RegisterServlet extends HttpServlet {
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("auth/register.html").include(request, response);
-    }
-
-    protected  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    @Override
+    protected  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         boolean success  = false;
 
