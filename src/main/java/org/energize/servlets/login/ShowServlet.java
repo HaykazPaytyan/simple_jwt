@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(value = "/login")
 public class ShowServlet extends HttpServlet {
 
-    private final String TEMPLATE_DIR = "templates/login/show.html";
+    private final String TEMPLATE_DIR = "/templates/login/show.html";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

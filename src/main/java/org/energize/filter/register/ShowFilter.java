@@ -1,5 +1,4 @@
-package org.energize.filter;
-
+package org.energize.filter.register;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "LoginFilter", urlPatterns = "/login")
-public class LoginFilter extends HttpFilter {
+@WebFilter(filterName = "ShowFilter", urlPatterns = "/register")
+public class ShowFilter extends HttpFilter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -28,8 +27,11 @@ public class LoginFilter extends HttpFilter {
 
         if (token != null){
             response.sendRedirect("/profile");
+        }else{
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
-        super.doFilter(req, res,chain);
+        super.doFilter(req, res, chain);
     }
 }

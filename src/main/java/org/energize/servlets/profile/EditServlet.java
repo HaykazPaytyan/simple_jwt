@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(value = "/profile/edit")
 public class EditServlet extends HttpServlet {
 
-    private final String TEMPLATE_DIR = "templates/profile/edit.html";
+    private final String TEMPLATE_DIR = "/templates/profile/edit.html";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

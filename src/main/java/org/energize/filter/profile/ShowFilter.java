@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@WebFilter(filterName = "ShowFilter", urlPatterns = "/profile")
+@WebFilter(filterName = "ShowProfileFilter", urlPatterns = "/profile")
 public class ShowFilter extends HttpFilter {
 
     private static final String SECRET = "something_interesting_in_this_case";
@@ -42,10 +42,8 @@ public class ShowFilter extends HttpFilter {
                     .build()
                     .parseClaimsJws(this.token);
 
-            super.doFilter(req, res, chain);
-
         }catch (ExpiredJwtException exp){
-            request.getRequestDispatcher("/auth/expaired.html").include(request, response);
+            request.getRequestDispatcher("/templates/expire/show.html").include(request, response);
             session.invalidate();
             return;
 
@@ -54,6 +52,8 @@ public class ShowFilter extends HttpFilter {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
+
+        super.doFilter(req, res, chain);
 
     }
 }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "EditFilter", urlPatterns = "/profile/edit")
+@WebFilter(filterName = "EditProfileFilter", urlPatterns = "/profile/edit")
 public class EditFilter extends HttpFilter {
 
     @Override
@@ -27,6 +27,9 @@ public class EditFilter extends HttpFilter {
 
         if (token != null){
             response.sendRedirect("/profile");
+        }else{
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
         super.doFilter(req, res,chain);
