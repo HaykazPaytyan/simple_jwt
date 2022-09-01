@@ -16,8 +16,8 @@ import java.util.Base64;
 import java.util.Date;
 
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = "/auth")
-public class AuthFilter extends HttpFilter {
+@WebFilter(filterName = "MainFilter", urlPatterns = "/auth")
+public class MainFilter extends HttpFilter {
 
 
     private static final String SECRET = "something_interesting_in_this_case";
@@ -68,7 +68,6 @@ public class AuthFilter extends HttpFilter {
                 HttpSession session = request.getSession();
                 session.setAttribute("token",this.jws);
 
-                super.doFilter(req, res,chain);
 
             }else{
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
@@ -76,5 +75,7 @@ public class AuthFilter extends HttpFilter {
             }
 
         }
+
+        super.doFilter(req, res,chain);
     }
 }

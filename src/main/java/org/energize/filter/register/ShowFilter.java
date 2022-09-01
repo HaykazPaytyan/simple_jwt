@@ -27,8 +27,6 @@ public class ShowFilter extends HttpFilter {
 
         if (token != null){
             response.sendRedirect("/profile");
-        }else{
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 

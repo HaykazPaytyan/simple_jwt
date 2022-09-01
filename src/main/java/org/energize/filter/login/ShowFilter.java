@@ -27,6 +27,7 @@ public class ShowFilter  extends HttpFilter {
 
         if (token != null){
             response.sendRedirect("/profile");
+            return;
         }
 
         super.doFilter(req, res,chain);

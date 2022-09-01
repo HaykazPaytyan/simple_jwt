@@ -25,9 +25,7 @@ public class EditFilter extends HttpFilter {
 
         String token = (String) session.getAttribute("token");
 
-        if (token != null){
-            response.sendRedirect("/profile");
-        }else{
+        if (token == null){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
