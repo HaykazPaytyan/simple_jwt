@@ -32,14 +32,13 @@ public class MainFilter extends HttpFilter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-
         this.authorization = request.getHeader("Authorization");
-        if (this.authorization == null || !(this.authorization.matches("Basic .+") || this.authorization.matches("Bearer .+"))){
+        if (this.authorization == null || !this.authorization.matches("Basic .+")){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
-        this.token = this.authorization.replaceAll("(Basic)|(Bearer)", "").trim();
+        this.token = this.authorization.replaceAll("(Basic)", "").trim();
 
         if (this.authorization.matches("Basic .+")){
             String decodedCredentials = new String(Base64.getDecoder().decode(this.token.getBytes()));
@@ -60,7 +59,7 @@ public class MainFilter extends HttpFilter {
 
             if (credentials[0].equals(user.getEmail()) && credentials[1].equals(user.getPassword())){
                 this.jws = Jwts.builder()
-                        .claim("id", MD5.getMd5(user.getId().toString()))
+                        .claim("id", user.getId())
                         .setExpiration(new Date(new Date().getTime() + (1000 * 60 * 2)))
                         .signWith(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8)))
                         .compact();
@@ -68,12 +67,10 @@ public class MainFilter extends HttpFilter {
                 HttpSession session = request.getSession();
                 session.setAttribute("token",this.jws);
 
-
             }else{
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-
         }
 
         super.doFilter(req, res,chain);
